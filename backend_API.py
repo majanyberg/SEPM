@@ -10,10 +10,10 @@ def get_words(category: str, difficulty: str, count=5) -> list:
     Fetch a specified amount of word/answer pairs of the specified category from the database.
     Args:
         category (str): The category of the words.
-        difficulty (int): The difficulty level of the words.
-        count (int): The number of words to fetch.
+        difficulty (str): The difficulty level of the words. Difficulties are 'easy', 'medium', and 'hard'.
+        count (int): The number of words to fetch. The maximum count per difficulty and category is 20.
     Returns:
-        list: A list dictionaries containing word/answer pairs. 
+        list: A list of dictionaries containing word/answer pairs and a list of three hints. 
         For example:
         [
             {"swedish": "hej", "english": "hello", "hints": ["first hint", "second hint", "third hint"]},
@@ -29,10 +29,10 @@ def get_times(difficulty: str, count=5) -> list:
     get_times
     Fetch a specified amount of digital time/swedish answer pairs from the database.
     Args:
-        difficulty (int): The difficulty level of the times.
-        count (int): The number of times to fetch.
+        difficulty (str): The difficulty level of the times. Difficulties are 'easy', 'medium', and 'hard'.
+        count (int): The number of times to fetch. The maximum count is 96.
     Returns:
-        list: A list dictionaries containing digital time/swedish answer pairs. 
+        list: A list of dictionaries containing digital time/swedish answer pairs. 
         For example:
         [
             {"time": "1:15", "swedish": "kvart över ett"},
