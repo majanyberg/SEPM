@@ -1,0 +1,10 @@
+{
+  "level_1": [
+    {"question": "What is 'klockan är fem'?", "answer": "17.00"},
+    {"question": "What is 'klockan är halv två'?", "answer": "13.30"}
+  ],
+  "level_2": [
+    {"question": "What is '18.15' in Swedish?", "answer": "Kvart över sex"},
+    {"question": "What is '12.40' in Swedish?", "answer": "Tjugo i ett"}
+  ]
+}
