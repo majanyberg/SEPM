@@ -6,7 +6,7 @@ try:
     from tkinter import font as tkFont
     from PIL import ImageFont, Image, ImageTk
     import os
-    from old.level1_ui import Level1UI 
+    from levels.level1_ui import Level1UI 
     modules_loaded = True
 except ImportError as e:
     print(f"Error: {e}")
