@@ -6,7 +6,7 @@ try:
     from tkinter import font as tkFont
     from PIL import ImageFont, Image, ImageTk
     import os
-    from levels.level1_ui import Level1UI 
+    from level1_ui import Level1UI 
     modules_loaded = True
 except ImportError as e:
     print(f"Error: {e}")
@@ -22,10 +22,7 @@ class ClockGame:
         """Initialize the Clock Game UI with an optional return-to-main callback."""
         self.root = root
         self.root.title("Clock Game")
-        self.last_width = 800  # Store last width to avoid redundant resizing
-        self.last_height = 600  # Store last height to avoid redundant resizing
-
-        self.root.geometry(f"{self.last_width}x{self.last_height}")  # Initial window size
+        self.root.geometry("800x600") # Width & height
         self.root.minsize(600, 400) # Minimum width & height
         self.root.configure(bg='#FFFFFF')
 
@@ -38,7 +35,9 @@ class ClockGame:
         # Initialize attributes
         self.bg_image = None
         self.bg_image_tk = None
-        
+        self.last_width = 800  # Store last width to avoid redundant resizing
+        self.last_height = 600  # Store last height to avoid redundant resizing
+
         # Store the callback function to return to the Main Menu
         self.return_to_main_menu_callback = return_to_main_menu_callback
 
