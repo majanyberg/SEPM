@@ -34,15 +34,23 @@ def get_words(category: str, difficulty: str, count=5) -> list:
 def get_times(difficulty: str, count=5) -> list:
     """ Gets <count> times of the given difficulty """
     with connect() as cur:
-        query = "SELECT time, swedish FROM times WHERE difficulty = ? ORDER BY RANDOM() LIMIT ?"
+        query = "SELECT id, time, swedish, difficulty FROM times WHERE difficulty = ? ORDER BY RANDOM() LIMIT ?"
         cur.execute(query, (difficulty, count))
         results = cur.fetchall()
 
         words = []
         for result in results:
+            query = "SELECT swedish FROM times WHERE difficulty = ? AND id != ? ORDER BY RANDOM() LIMIT 3"
+            cur.execute(query, (difficulty,result[0]))
+            opt_results = cur.fetchall()
+            options = [r[0] for r in opt_results]
+            options.append(result[2])
             words.append({
-                "time": result[0],
-                "swedish": result[1],
+                "query": result[1],
+                "ans": result[2],
+                "level": result[3],
+                "options": options,
+                "img_url": "https://img.freepik.com/free-psd/modern-white-clock-time-management-punctuality-concept_191095-83715.jpg"
             })
         return words
 
