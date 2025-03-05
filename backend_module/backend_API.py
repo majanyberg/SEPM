@@ -1,8 +1,8 @@
-import content
+from backend_module import content
 import sqlite3
 from datetime import datetime
 import json
-from user_management import _connect, _get_table_columns
+from backend_module.user_management import _connect, _get_table_columns
 
 def get_words(category: str, difficulty: str, count=5) -> list:
     """
