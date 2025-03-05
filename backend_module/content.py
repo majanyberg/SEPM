@@ -1,4 +1,4 @@
-import storage
+from backend_module import storage
 
 word_fetch_limit = 20
 time_fetch_limit = 96
