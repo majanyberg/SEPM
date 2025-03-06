@@ -71,7 +71,7 @@ def english_time_string(hour: int, minute: int) -> str:
 def seed_times_24h():
     """
     Inserts every quarter-hour from 00:00 to 23:45 (24-hour format) into the 'times' table,
-    with a Swedish expression, an English expression, and difficulty='easy'.
+    with a Swedish expression, an English expression, and difficulty='EASY'.
     """
     rows_to_insert = []
     quarter_minutes = [0, 15, 30, 45]
@@ -87,8 +87,8 @@ def seed_times_24h():
             # English expression (12-hour style phrases)
             eng_expr = english_time_string(hour, minute)
 
-            # difficulty set to "easy" by default
-            difficulty = "easy"
+            # difficulty set to "EASY" by default
+            difficulty = "EASY"
 
             # We'll store (time, swedish, english, difficulty) if your schema has all four columns
             # If your 'times' table only has (time, swedish, difficulty), remove eng_expr below
