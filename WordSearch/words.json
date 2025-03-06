@@ -1,0 +1,28 @@
+{
+    "clothes": {
+        "swedish": [
+            "jacka",
+            "byxor"
+        ],
+        "english": [
+            "jacket",
+            "pants"
+        ],
+        "hints": ["hint1", "hint2"]
+    },
+    "food": {
+        "swedish": [
+            "äpple",
+            "bröd",
+            "päron",
+            "pasta"
+        ],
+        "english": [
+            "apple",
+            "bread",
+            "pear",
+            "pasta"
+        ],
+        "hints": ["hint1", "hint2"]
+    }
+}
