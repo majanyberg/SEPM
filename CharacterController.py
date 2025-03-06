@@ -90,6 +90,7 @@ class CharacterController:
         path_to_file, clothes, word_position, center_position
 
         If clothes or any position is given in argument, you have to specify the clothe's position in parameters.
+        For Position give a Tuple type object: (x,y)
         The standard clothe's position is from top to bottom.
         For example, if the character has a hat a t-shirt and a pant:
         0 = hat, 1 = t-shirt, 2 = pant
@@ -110,7 +111,23 @@ class CharacterController:
         Returns:
             bool: True if the update was successful, False otherwise.
         """
-        pass
+        if character_id not in self.character_list: return False
+        elif attribute_to_change == 'path_to_file':
+            self.character_list[character_id].path_to_file = new_value
+            return True
+        elif attribute_to_change == 'clothes':
+            if not isinstance(new_value, list): return False
+            self.character_list[character_id].clothes[clothe_position] = new_value
+            return True
+        elif attribute_to_change == 'word_position':
+            if not isinstance(new_value, tuple): return False
+            self.character_list[character_id].clothes[clothe_position].edit_word_center(new_value)
+            return True
+        elif attribute_to_change == 'center_position':
+            if not isinstance(new_value, tuple): return False
+            self.character_list[character_id].clothes[clothe_position].edit_center_center(new_value)
+            return True
+        else: return False
 
     def retrieve_nouns(self, character_id_list):
         """
