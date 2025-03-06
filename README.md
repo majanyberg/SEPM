@@ -1,6 +1,15 @@
 # SEPM-Project
 Project repository for group 8 in the UU course Software Engineering and Project Management.
 
+## To run the main runtime (not recommended, should not be used independetly)
+0. It's recommended to create a venv, read more here: https://docs.python.org/3/library/venv.html
+1. Install the requirment modules. ` pip install -r requirments.txt`.
+2. Run ` python -m source.main `
+
+## To run tests.
+0. It's recommended to create a venv, read more here: https://docs.python.org/3/library/venv.html
+1. Install the requirment modules. ` pip install -r requirments.txt`.
+2. Run ` python -m unittest `
 
 
 ## Styleguide

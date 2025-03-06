@@ -1,10 +1,39 @@
-{
-  "level_1": [
-    {"question": "What is 'klockan är fem'?", "answer": "17.00"},
-    {"question": "What is 'klockan är halv två'?", "answer": "13.30"}
-  ],
-  "level_2": [
-    {"question": "What is '18.15' in Swedish?", "answer": "Kvart över sex"},
-    {"question": "What is '12.40' in Swedish?", "answer": "Tjugo i ett"}
-  ]
-}
+[
+  {
+    "query": "1115",
+    "ans": "kvart över elva",
+    "level": 1,
+    "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg",
+    "options": [
+      "kvart till elva",
+      "kvart i tio",
+      "kvart över elva",
+      "halv till elva"
+    ]
+  },
+  {
+    "query": "1500",
+    "ans": "kvart i tre",
+    "level": 2,
+    "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg",
+    "options": [
+      "kvart till tre",
+      "kvart i tre",
+      "kvart över tre",
+      "halv till tre"
+    ]
+  },
+  {
+    "query": "0730",
+    "ans": "halv åtta",
+    "level": 1,
+    "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg",
+    "options": ["kvart över sju", "halv åtta", "kvart i åtta", "fem över sju"]
+  },
+  {
+    "query": "2215",
+    "ans": "kvart över tio",
+    "level": 3,
+    "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg"
+  }
+]

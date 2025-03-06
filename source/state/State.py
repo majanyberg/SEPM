@@ -1,30 +1,18 @@
-from Score import Score
+from source.state.Score import Score
 
 class GameState:
     """Component that keeps track of the gamestate"""
 
     def __init__(self, level: int = 1, max_score: int = 0):
-        if self.is_valid_level(level):
-            self.level = level
-        else:
-            raise ValueError("The given level value is not a valid level.")
-
+        if not self.is_valid_level(level):
+            raise ValueError("Invalid level: must be between 1 and 3.")
+        
         # Initialize variables to be used to determine stats and 
+        self.level = level
         self._questions_answered = 0
         self._correct_in_row = 0
         self._questions_answered_correctly = 0
         self.score = Score(max_score)
-
-    def is_valid_level(self, level: int) -> bool:
-        """Given level arg returns true or false if the level is valid.
-
-        Args:
-            level (int): level to check if valid
-
-        Returns:
-            bool: true if valid, false otherwise.
-        """
-        return level > 0 and level < 5
     
     def correct_answer(self) -> None:
         """
@@ -54,3 +42,6 @@ class GameState:
 
     def get_level(self) -> int:
         return self.level
+    
+    def is_valid_level(self, level: int) -> bool:
+        return 1 <= level <= 3
