@@ -130,7 +130,7 @@ sudo apt install python3-tk -y
 
 ### Clone this repository
 ```bash
-git clone https://github.com/SamuelMoller/sepm-group6.git
+git clone https://github.com/majanyberg/SEPM.git
 ```
 
 ### Install dependencies
