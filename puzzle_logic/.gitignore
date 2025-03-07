@@ -1,0 +1,5 @@
+# Ignore old folder
+old/
+
+# Ignore __pycache__ folder
+__pycache__/
