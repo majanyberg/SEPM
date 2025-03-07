@@ -13,7 +13,7 @@ class Level2UI:
         self.back_to_menu_callback = back_to_menu_callback
         self.game_logic = logic
         self.score = self.game_logic.fetch_score()
-        self.level = 2
+        self.level = self.game_logic.game.game_state.level
 
         self.clock_image_path = "assets/Loading.png"
 
@@ -118,10 +118,11 @@ class Level2UI:
                 print("Error loading image from URL.")
             
             options = question_data.get("options", ["No options available"])
+            self.game_logic.correct_answer = question_data["ans"]
+            options.append(self.game_logic.correct_answer)
             random.shuffle(options)
             for i, option in enumerate(options):
                 self.option_buttons[i].config(text=option, bg="gray")
-            self.game_logic.correct_answer = question_data["ans"]
         else:
             print("No question available.")
 
@@ -139,7 +140,7 @@ class Level2UI:
         self.score_label.config(text=f"Score: {self.score}")
 
         new_level = self.game_logic.update_level(self.score)
-        if new_level == self.level:
+        if new_level <= self.level:
             self.load_question()
         else:
             self.show_level_complete_message(new_level)
@@ -153,10 +154,10 @@ class Level2UI:
         self.game_logic.end_game()
         # self.load_question()
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.title("Level 2 UI Test")
-    root.geometry("1080x720")
-    app = Level2UI(root, lambda: print("Back to menu"))
-    root.mainloop()
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     root.title("Level 2 UI Test")
+#     root.geometry("1080x720")
+#     app = Level2UI(root, lambda: print("Back to menu"))
+#     root.mainloop()
 

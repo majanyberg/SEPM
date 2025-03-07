@@ -2,7 +2,7 @@
   {
     "query": "1115",
     "ans": "kvart över elva",
-    "level": 1,
+    "level": "EASY",
     "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg",
     "options": [
       "kvart till elva",
@@ -14,7 +14,7 @@
   {
     "query": "1500",
     "ans": "kvart i tre",
-    "level": 2,
+    "level": "MEDIUM",
     "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg",
     "options": [
       "kvart till tre",
@@ -26,14 +26,14 @@
   {
     "query": "0730",
     "ans": "halv åtta",
-    "level": 1,
+    "level": "EASY",
     "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg",
     "options": ["kvart över sju", "halv åtta", "kvart i åtta", "fem över sju"]
   },
   {
     "query": "2215",
     "ans": "kvart över tio",
-    "level": 3,
+    "level": "HARD",
     "img_url": "https://img.freepik.com/free-vector/wall-office-clock-with-black-red-hands-white-dial_1284-8992.jpg"
   }
 ]

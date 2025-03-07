@@ -1,18 +1,20 @@
 # Attempt to import required modules
 try:
-    from game_logic_connector import GameLogicConnector
-    from backend_connector import BackendConnector
+    import os
     import tkinter as tk
     from tkinter import messagebox
     from tkinter import font as tkFont
     from PIL import ImageFont, Image, ImageTk
-    import os
+    
+    from game_logic_connector import GameLogicConnector
+    from backend_connector import BackendConnector
     from levels.level1_ui import Level1UI
     from levels.level2_ui import Level2UI
     from levels.level3_ui import Level3UI
     modules_loaded = True
 except ImportError as e:
-    print(f"Error: {e}")
+    import traceback
+    print(f"Error: {traceback.format_exc()}")
     modules_loaded = False  # Prevent game from running if dependencies are missing
 
 # Define paths dynamically
@@ -217,6 +219,7 @@ class ClockGame:
                 widget.destroy()  # Remove existing widgets
         level_ui_classes = {1: Level1UI, 2: Level2UI, 3: Level3UI}
         level_ui_class = level_ui_classes.get(level)
+        self.logic.game.game_state.set_level(level)
 
         if level_ui_class:
             self.current_level_ui = level_ui_class(self.root, self.back_to_menu, self.logic)

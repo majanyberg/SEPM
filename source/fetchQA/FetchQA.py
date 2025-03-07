@@ -3,8 +3,10 @@ import random
 import json
 from io import BytesIO
 from PIL import Image, ImageTk
+from backend_connector import BackendConnector
 
-BACKEND_URL = ""  # TODO: fill in correct URL
+
+mappings = {1: "EASY", 2: "MEDIUM", 3: "HARD"}
 
 
 def load_questions(file_path='source/fetchQA/questions.json'):
@@ -26,11 +28,14 @@ def fetch_questions_from_backend(level):
     """
     Fetches all questions for a specific level from the backend.
     """
+    if type(level) == int:
+        difficulty = mappings.get(level, "EASY")
+    else:
+        difficulty = level
     try:
-        response = requests.get(f'{BACKEND_URL} level={level}', timeout=5)  # TODO: is the level chosen here?
-        if response.status_code == 200:  # TODO: check actual value with backend team
-            data = response.json()
-            return data.get('questions', [])
+        backend = BackendConnector()
+        questions = backend.fetch_questions(difficulty)
+        return questions
     except requests.RequestException as e:
         print(f'An error occurred while fetching questions: {e}')
         return []
@@ -40,7 +45,7 @@ def generate_random_question(level):
     """
     Randomly selects a question for the specific level.
     """
-    questions = fetch_qa_temp(level)
+    questions = fetch_questions_from_backend(level)
     if questions:
         return random.choice(questions)
     else:

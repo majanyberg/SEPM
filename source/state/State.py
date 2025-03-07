@@ -43,5 +43,8 @@ class GameState:
     def get_level(self) -> int:
         return self.level
     
+    def set_level(self, level: int) -> int:
+        self.level = level
+    
     def is_valid_level(self, level: int) -> bool:
         return 1 <= level <= 3

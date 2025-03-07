@@ -9,11 +9,11 @@ class Level1UI:
     def __init__(self, root, back_to_menu_callback, logic: GameLogicConnector):
         self.root = root
         self.back_to_menu_callback = back_to_menu_callback
-        self.sizex = 1600
-        self.sizey = 900
+        self.sizex = 800
+        self.sizey = 600
         self.game_logic = logic
         self.score = self.game_logic.fetch_score()
-        self.level = 1
+        self.level = self.game_logic.game.game_state.level
         
         self.clock_image = None
         self.title_font = tkFont.Font(family="Arial", size=self.sizex//25, weight="bold")
@@ -196,10 +196,11 @@ class Level1UI:
                 print("Error loading image from URL.")
             
             options = question_data.get("options", ["No options available"])
+            self.game_logic.correct_answer = question_data["ans"]
+            options.append(self.game_logic.correct_answer)
             random.shuffle(options)
             for i, option in enumerate(options):
                 self.option_buttons[i].config(text=option, bg="#cccccc")
-            self.game_logic.correct_answer = question_data["ans"]
             
             # If you need to update the clock display, you can update self.time_label.config(text="...")
 

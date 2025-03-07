@@ -11,7 +11,7 @@ class Level3UI:
         self.back_to_menu_callback = back_to_menu_callback
         self.game_logic = logic
         self.score = self.game_logic.fetch_score()
-        self.level = 3
+        self.level = self.game_logic.game.game_state.level
         self.font = tkFont.Font(family="Arial", size=20)
         self.keyboard_visible = False  # Track keyboard state
         self.setup_ui()
@@ -78,7 +78,16 @@ class Level3UI:
         self.answer_entry.insert(tk.END, char)
 
     def load_question(self):
-        self.question_label.config(text=self.game_logic.fetch_question(self.level)["query"])
+        question_data = self.game_logic.fetch_question(self.level)
+        if not question_data:
+            messagebox.showerror("Error", "Failed to load question.")
+            return
+        
+        if question_data == "No more question available.":
+            messagebox.showinfo("Level Complete", "You've completed all questions for this level.")
+            self.back_to_menu_callback()
+            return
+        self.question_label.config(text=question_data["query"])
 
     def check_answer(self):
         selected_answer = self.answer_entry.get()
@@ -92,7 +101,7 @@ class Level3UI:
         self.score_label.config(text=f"Score: {self.score}")
 
         new_level = self.game_logic.update_level(self.score)
-        if new_level == self.level:
+        if new_level <= self.level:
             self.load_question()
         else:
             self.show_level_complete_message(new_level)
@@ -103,9 +112,9 @@ class Level3UI:
         self.game_logic.end_game()
         # self.load_question()
 
-# 🔹 Run the application
-if __name__ == "__main__":
-    root = tk.Tk()
-    root.geometry("1080x720")
-    app = Level3UI(root, lambda: print("Back to menu"))
-    root.mainloop()
+# # 🔹 Run the application
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     root.geometry("1080x720")
+#     app = Level3UI(root, lambda: print("Back to menu"))
+#     root.mainloop()
