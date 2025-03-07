@@ -4,7 +4,7 @@ from tkinter import messagebox
 from source.fetchQA.FetchQA import load_image_from_url
 from game_logic_connector import GameLogicConnector
 import random
-
+import time
 class Level1UI:
     def __init__(self, root, back_to_menu_callback, logic: GameLogicConnector):
         self.root = root
@@ -14,13 +14,13 @@ class Level1UI:
         self.game_logic = logic
         self.score = self.game_logic.fetch_score()
         self.level = self.game_logic.game.game_state.level
-        
+
         self.clock_image = None
         self.title_font = tkFont.Font(family="Arial", size=self.sizex//25, weight="bold")
         self.normal_font = tkFont.Font(family="Arial", size=20)
-        
-        self.top_bar_color = "#f5f5f5" 
-        
+
+        self.top_bar_color = "#f5f5f5"
+
         self.setup_ui()
 
     def setup_ui(self):
@@ -41,34 +41,34 @@ class Level1UI:
     def create_top_bar(self):
         self.top_frame = tk.Frame(self.root, bg=self.top_bar_color, height=40)
         self.top_frame.pack(fill="x", side="top")
-    
+
         self.top_content_frame = tk.Frame(self.top_frame, bg=self.top_bar_color)
         self.top_content_frame.pack(fill="x", expand=True)
-    
+
         self.top_left_frame = tk.Frame(self.top_content_frame, bg=self.top_bar_color)
         self.top_left_frame.pack(side="left")
-    
+
         self.uppsala_logo = tk.PhotoImage(file="assets/uu-logo.png")
         self.uppsala_label = tk.Label(self.top_left_frame,
                                       image=self.uppsala_logo,
                                       bg=self.top_bar_color)
         self.uppsala_label.pack(side="left", padx=20, pady=10)
-    
+
 
         self.top_center_frame = tk.Frame(self.top_content_frame, bg=self.top_bar_color)
         self.top_center_frame.pack(side="left", expand=True)
-    
+
         self.clock_game_label = tk.Label(self.top_center_frame,
                                          text="CLOCK GAME",
                                          bg=self.top_bar_color,
                                          fg="#C54549",
                                          font=self.title_font)
         self.clock_game_label.pack(anchor="center")
-    
+
 
         self.top_right_frame = tk.Frame(self.top_content_frame, bg=self.top_bar_color)
         self.top_right_frame.pack(side="right")
-    
+
         self.level_label = tk.Label(self.top_right_frame,
                                     text=f"Level {self.level}",
                                     bg=self.top_bar_color,
@@ -136,25 +136,25 @@ class Level1UI:
         # Bottom background: light gray
         self.bottom_frame = tk.Frame(self.root, bg=self.top_bar_color, height=400)
         self.bottom_frame.pack(fill="x", side="bottom")
-    
+
         self.bottom_content_frame = tk.Frame(self.bottom_frame, bg=self.top_bar_color)
         self.bottom_content_frame.pack(fill="both", expand=True)
-    
+
         # Left：Score
         self.bottom_left_frame = tk.Frame(self.bottom_content_frame, bg=self.top_bar_color)
         self.bottom_left_frame.pack(side="left")
-    
+
         self.score_label = tk.Label(self.bottom_left_frame,
                                     text=f"Score: {self.score}",
                                     bg=self.top_bar_color,
                                     fg="black",
                                     font=("Arial", 12))
         self.score_label.pack(padx=20)
-    
+
         # Center: Hint
         self.bottom_center_frame = tk.Frame(self.bottom_content_frame, bg=self.top_bar_color)
         self.bottom_center_frame.pack(side="left", expand=True)
-    
+
         self.hint_button = tk.Button(self.bottom_center_frame,
                                      text="Hint",
                                      font=("Arial", 12),
@@ -164,11 +164,11 @@ class Level1UI:
                                      height=self.sizey//1080,
                                      command=self.game_logic.provide_hint())
         self.hint_button.pack(anchor="center")
-    
+
         # Right: Home button
         self.bottom_right_frame = tk.Frame(self.bottom_content_frame, bg=self.top_bar_color)
         self.bottom_right_frame.pack(side="right")
-    
+
         self.home_button = tk.Button(self.bottom_right_frame,
                                      text="🏠",
                                      font=("Arial", 12),
@@ -187,21 +187,21 @@ class Level1UI:
                 self.back_to_menu_callback()
                 return
             self.question_label.config(text=question_data["query"])
-            
+
             self.clock_image = load_image_from_url(question_data["img_url"])
             if self.clock_image:
                 self.clock_label = tk.Label(self.right_content_frame, image=self.clock_image, bg="white")
                 self.clock_label.pack(pady=self.sizey//144)
             else:
                 print("Error loading image from URL.")
-            
+
             options = question_data.get("options", ["No options available"])
             self.game_logic.correct_answer = question_data["ans"]
             options.append(self.game_logic.correct_answer)
             random.shuffle(options)
             for i, option in enumerate(options):
                 self.option_buttons[i].config(text=option, bg="#cccccc")
-            
+
             # If you need to update the clock display, you can update self.time_label.config(text="...")
 
             # renew score
@@ -220,7 +220,9 @@ class Level1UI:
                 if button.cget("text") == self.game_logic.correct_answer:
                     button.config(bg="green")
 
-        
+        for button in self.option_buttons:
+            button.update()
+
         self.score_label.config(text=f"Score: {self.score}")
 
         new_level = self.game_logic.update_level(self.score)
@@ -228,7 +230,7 @@ class Level1UI:
             self.load_question()
         else:
             self.show_level_complete_message(new_level)
-        
+
         return self.score
 
     def show_level_complete_message(self, new_level):
