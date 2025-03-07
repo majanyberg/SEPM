@@ -1,5 +1,5 @@
 import json
-from model.category import Category
+from WordSearch.model.category import Category
 
 class Backend:
 
