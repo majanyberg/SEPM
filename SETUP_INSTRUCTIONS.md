@@ -52,12 +52,6 @@ brew install python-tk
 ## **✅ 2. Install Required Python Libraries**
 To install all dependencies, use the provided **requirements file**.
 
-### **📜 Create `requirements.txt` (if not already in the project)**
-```sh
-echo 'pillow' > requirements.txt
-echo 'tk' >> requirements.txt
-```
-
 ### **📥 Install Dependencies**
 ```sh
 pip3 install -r requirements.txt
@@ -89,20 +83,19 @@ brew install --cask font-work-sans
 The game requires the `assets` folder containing:
 - `assets/UU-logo`
 - `assets/progress.json`
+- `assets/WorkSans-Italic-VariableFont_wght.ttf`
 
 If `progress.json` is missing, create it:
 ```sh
 echo '{"scores": {}, "leaderboard": []}' > assets/progress.json
 ```
 
-Ensure the `UU-logo` file is in the `assets/` directory.
-
 ---
 
 ## **✅ 5. Running the Game**
 Once everything is set up, **run the game**:
 ```sh
-python3 run_game.py
+python3 ui.py
 ```
 
 If running from the **Main Menu**, use:
@@ -126,6 +119,6 @@ python3 main.py
 ✔ "Work Sans" font installed  
 
 ### **Assets**
-✔ Ensure `assets/UU-logo` and `assets/progress.json` exist  
+✔ Ensure `assets/UU-logo`, `assets/progress.json` and `assets/WorkSans-Italic-VariableFont_wght.ttf` exist  
 
 
