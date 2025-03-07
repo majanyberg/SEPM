@@ -1,9 +1,10 @@
 import contextlib
+import os
 import sqlite3
 
 @contextlib.contextmanager
 def connect():
-    conn = sqlite3.connect('backend.db')
+    conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.realpath(__file__)), "backend.db"))
     cur = conn.cursor()
     try:
         yield cur
