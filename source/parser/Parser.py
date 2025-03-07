@@ -11,9 +11,7 @@ class InvalidTimeFormat(Exception):
 
 
 class Parser:
-    type timestamp = tuple[int, int]
-
-    def parse_timestamp(self, input: str) -> timestamp:
+    def parse_timestamp(self, input: str) -> tuple[int, int]:
         """
         Validate that input matches the 24-hour clock time format HH:MM, 
         where HH and MM are digit combinations within the range 00-23 and 
