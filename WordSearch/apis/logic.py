@@ -1,9 +1,9 @@
-from model.player import Player
-from model.category import Category
-from model.grid import Grid
-from model.word_list import WordList
+from WordSearch.model.player import Player
+from WordSearch.model.category import Category
+from WordSearch.model.grid import Grid
+from WordSearch.model.word_list import WordList
 import random
-from model.wordtracker import WordTracker
+from WordSearch.model.wordtracker import WordTracker
 
 class Logic:
     def __init__(self):
@@ -160,6 +160,6 @@ class Logic:
         if self.word_tracker:
             return self.word_tracker.check_coordinate((x, y))
         return False  # If no WordTracker initialized, return False
-
         
+
 

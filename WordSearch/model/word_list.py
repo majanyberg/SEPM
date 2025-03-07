@@ -1,7 +1,7 @@
 import sys
 sys.path.append("..")
-from .category import Category
-from apis.mocked_backend import Backend as backend_API
+from WordSearch.model.category import Category
+from WordSearch.apis.mocked_backend import Backend as backend_API
 #backend module
 #import backend_API
 

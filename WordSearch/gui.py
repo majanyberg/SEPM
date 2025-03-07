@@ -1,17 +1,17 @@
 from tkinter import Tk, messagebox, Button, Label, Frame
-from array2d import Array2D
+from WordSearch.array2d import Array2D
 
 
-from apis.logic import Logic
-from model.category import Category
-from model.player import Player
+from WordSearch.apis.logic import Logic
+from WordSearch.model.category import Category
+from WordSearch.model.player import Player
 
-  
+
 
 class Application():
+ 
     def __init__(self):
-        
-
+          
         self.logic = Logic()
         self.num_hints = 3
         self.remaining_lives = 3
@@ -34,6 +34,7 @@ class Application():
 
     def build(self):
         self.root = Tk()
+        self.root.state('zoomed')
         self.root.title("Word Search")
         self.root.configure(bg='white')
         self.root.minsize(width=400, height=500)
@@ -243,6 +244,10 @@ class Application():
         self.root.destroy()
 
 
+def launch_puzzle_game():
+    app = Application()
+    
 
+if __name__ == "__main__":
+    launch_puzzle_game()
 
-Application()

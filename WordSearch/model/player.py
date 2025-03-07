@@ -1,6 +1,6 @@
 from __future__ import annotations
-from .category import Category
-from .grid import Grid
+from WordSearch.model.category import Category
+from WordSearch.model.grid import Grid
 
 class Player:
     def __init__(self, hp: int, hints_left: int, category: Category):

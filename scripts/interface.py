@@ -8,9 +8,10 @@ import json
 # Integration modules
 from sys import path as syspath
 syspath.append(normpath(join(dirname(__file__), '../')))
-from backend import user
 from backend_module import backend_API
 import ui
+from WordSearch.gui import launch_puzzle_game
+
 
 # CURRENT USER
 current_user = None
@@ -299,7 +300,7 @@ def set_language(val: str) -> None:
                     case "USER-AGE":
                         _canvas.itemconfig(item, text=f"{loc[lang]['USER-AGE']} {user_profile['age']}")
                     case "USER-CNTR":
-                        _canvas.itemconfig(item, text=f"{loc[lang]["USER-CNTR"]} {user_profile['country']}")
+                        _canvas.itemconfig(item, text=f"{loc[lang]['USER-CNTR']} {user_profile['country']}")
 
     # Theme dropdown
     accessibility_frame[0].theme_options = [loc[lang]["ACCESS-THEME-LIGHT"],
@@ -373,7 +374,8 @@ def on_placeholder_click():
 
 
 def on_match_the_words_click():
-    print("WILL BE IMPLEMENTED")
+    launch_puzzle_game()
+    
 
 
 def on_admin_control_click():
