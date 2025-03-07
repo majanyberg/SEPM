@@ -309,7 +309,7 @@ def set_language(val: str) -> None:
     accessibility_frame[0].theme_setting = StringVar(root, accessibility_frame[0].theme_options[0]) if theme == "Light" else StringVar(root, accessibility_frame[0].theme_options[1])
     accessibility_frame[0].theme_dropdown.destroy()
     accessibility_frame[0].theme_dropdown = create_dropdown(accessibility_frame[1],
-                                                            x=screen_width // 2 + 150, y=screen_height // 2 + 200,
+                                                            x=screen_width // 2 + 100, y=screen_height // 2 + 200,
                                                             options=accessibility_frame[0].theme_options,
                                                             stringvar=accessibility_frame[0].theme_setting,
                                                             command=lambda val: set_theme(val))
