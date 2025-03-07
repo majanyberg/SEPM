@@ -8,6 +8,7 @@ import json
 # Integration modules
 from sys import path as syspath
 syspath.append(normpath(join(dirname(__file__), '../')))
+from backend import user
 from backend_module import backend_API
 import ui
 from WordSearch.gui import launch_puzzle_game
@@ -308,7 +309,7 @@ def set_language(val: str) -> None:
     accessibility_frame[0].theme_setting = StringVar(root, accessibility_frame[0].theme_options[0]) if theme == "Light" else StringVar(root, accessibility_frame[0].theme_options[1])
     accessibility_frame[0].theme_dropdown.destroy()
     accessibility_frame[0].theme_dropdown = create_dropdown(accessibility_frame[1],
-                                                            x=screen_width // 2 + 150, y=screen_height // 2 + 200,
+                                                            x=screen_width // 2 + 100, y=screen_height // 2 + 200,
                                                             options=accessibility_frame[0].theme_options,
                                                             stringvar=accessibility_frame[0].theme_setting,
                                                             command=lambda val: set_theme(val))
@@ -366,6 +367,7 @@ def on_clock_game_click():
     clock_game_root = Toplevel()
     root.clock_game = ui.ClockGame(clock_game_root, return_to_main_menu_callback=lambda: _close_clock_game(clock_game_root, root))
     root.withdraw()
+    clock_game_root.state('zoomed')  
     clock_game_root.mainloop()
 
 
@@ -749,7 +751,7 @@ def accessibility_menu_table() -> tuple[Frame, Canvas]:
     accessibility_frame.theme_options = [loc[lang]["ACCESS-THEME-LIGHT"],
                                          loc[lang]["ACCESS-THEME-DARK"]]
     accessibility_frame.theme_setting = StringVar(root, accessibility_frame.theme_options[0]) if theme == "Light" else StringVar(root, accessibility_frame.theme_options[1])
-    accessibility_frame.theme_dropdown = create_dropdown(canvas, x=center['x'] + 150, y=center['y'] + 200,
+    accessibility_frame.theme_dropdown = create_dropdown(canvas, x=center['x'] + 100, y=center['y'] + 200,
                                                          options=accessibility_frame.theme_options, stringvar=accessibility_frame.theme_setting,
                                                          command=lambda val: set_theme(val))
 

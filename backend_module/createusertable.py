@@ -1,4 +1,4 @@
-from user_management import _connect, _get_table_columns
+from backend_module.user_management import _connect, _get_table_columns
 
 def create_users_table():
     try:
