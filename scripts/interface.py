@@ -9,7 +9,7 @@ import json
 from sys import path as syspath
 syspath.append(normpath(join(dirname(__file__), '../')))
 from backend import user
-from integration_backend import backend_API
+from backend_module import backend_API
 import ui
 
 # CURRENT USER
