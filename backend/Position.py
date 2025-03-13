@@ -1,14 +1,11 @@
+from dataclasses import dataclass
+
+@dataclass
 class Position:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+
+    x: int
+    y: int
 
     def move(self, x, y):
         self.x = x
         self.y = y
-
-    def getX(self):
-        return self.x
-
-    def getY(self):
-        return self.y

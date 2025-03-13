@@ -2,7 +2,7 @@ from frontend.RoundedRectangle import RoundedRectangle
 
 class GameWord:
 
-    def __init__(self, word, canvas, x, y, bg, validateAnsFunc, winFunc, descPositions):
+    def __init__(self, word, canvas, x, y, bg, validateAnsFunc = None, winFunc = None, descPositions = None, inLevelMaker = False):
         self.word = word
         self.startX = x
         self.startY = y
@@ -11,6 +11,7 @@ class GameWord:
         self.validateAnsFunc = validateAnsFunc
         self.winFunc = winFunc
         self.descPositions = descPositions
+        self.inLevelMaker = inLevelMaker
         self.createWord(word, x, y)
 
     def createWord(self, word, x, y):
@@ -66,8 +67,9 @@ class GameWord:
             self.winFunc()
 
     def createWordKeyBind(self, tag):
-        self.canvas.tag_bind(tag, "<B1-Motion>", lambda e: self.moveWord(e, tag))
-        self.canvas.tag_bind(tag, "<ButtonRelease-1>", lambda e: self.snapWord(e, tag))
+        if not self.inLevelMaker:
+            self.canvas.tag_bind(tag, "<B1-Motion>", lambda e: self.moveWord(e, tag))
+            self.canvas.tag_bind(tag, "<ButtonRelease-1>", lambda e: self.snapWord(e, tag))
 
     def move(self, x, y):
         self.startX = x

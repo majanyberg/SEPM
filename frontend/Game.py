@@ -7,7 +7,8 @@ from backend.Position import Position
 from frontend.GameWord import GameWord
 from frontend.RoundedRectangle import RoundedRectangle
 
-class GameCanvas:
+# "Restart" and "Levels" button not fully implemented
+class Game:
 
     words = [] #
     descPositions = [] # (x, y, isSlotAvailable, wordOccupyingSlot)
@@ -56,7 +57,7 @@ class GameCanvas:
         newLineThreshold = 850
         
         for word in words:
-            gameWord = GameWord(word, self.canvas, x, y, bg, validateAnswer, self.win, self.descPositions)
+            gameWord = GameWord(word, self.canvas, x, y, bg, self.validateAnswerFunc, self.win, self.descPositions)
             self.words.append(gameWord)
 
             bounds = self.canvas.bbox(word)
@@ -70,27 +71,67 @@ class GameCanvas:
             x += itemWidth + xSpacing
 
     def createCharacter(self, character):
+        self.character = character
         global characterImg
-        characterImg = tk.PhotoImage(file=character.getPath())
-        offsetX = 380
+        characterImg = tk.PhotoImage(file=character.path_to_img)
+        characterImg = characterImg.subsample(5, 5)
+        offsetX = 330
         offsetY = 330
         self.canvas.create_image(offsetX+20, offsetY+170, image=characterImg, anchor="nw")
-        for clothingItem in character.getClothes():
-            self.createWordLine(clothingItem.getCenterPosition(), clothingItem.getWordPosition(), offsetX, offsetY)
-        self.descPositions.append((offsetX+190, offsetY+195, True, ""))
-        self.descPositions.append((offsetX+215, offsetY+255, True, ""))
-        self.descPositions.append((offsetX+220, offsetY+315, True, ""))
-        self.descPositions.append((offsetX+215, offsetY+370, True, ""))
+        for clothingItem in character.clothes:
+            centerPos = clothingItem.clothingPosition
+            wordPos = clothingItem.wordPosition
+            allWordPositions = self.calculateWordPositions(wordPos, clothingItem.name, clothingItem.adjectives)
+            self.createWordLine(centerPos, allWordPositions, offsetX, offsetY)
+            
+            for wp in allWordPositions:
+                self.descPositions.append((offsetX + wp.x, offsetY + wp.y, True, ""))
 
-    def createWordLine(self, p1, p2, offsetX, offsetY):
-        p1.move(offsetX + p1.getX(), offsetY + p1.getY())
-        p2.move(offsetX + p2.getX(), offsetY + p2.getY())
+
+    def calculateWordPositions(self, firstWordPos, clothingName, adjectives):
+        wordPositions = [firstWordPos]
+        # for i, adjective in enumerate(adjectives):
+        #     for gameWord in self.words:
+        #         if adjective == gameWord.word:
+        #             bounds = self.canvas.bbox(adjective)
+        #             itemWidth = bounds[2] - bounds[0]
+        #             wordPositions.append(Position(wordPositions[i].x + itemWidth / 2 + 30, wordPositions[i].y))
+        spacing = 5
+        for i in range(1, len(adjectives)):
+            bounds = self.canvas.bbox(adjectives[i - 1])
+            item1Width = bounds[2] - bounds[0]
+
+            bounds = self.canvas.bbox(adjectives[i])
+            item2Width = bounds[2] - bounds[0]
+            wordPositions.append(Position(wordPositions[i - 1].x + item1Width / 2 + spacing + item2Width / 2, firstWordPos.y))
+    
+        bounds = self.canvas.bbox(adjectives[-1])
+        item1Width = bounds[2] - bounds[0]
+
+        bounds = self.canvas.bbox(clothingName)
+        item2Width = bounds[2] - bounds[0]
+        wordPositions.append(Position(wordPositions[-1].x + item1Width / 2 + spacing + item2Width / 2, firstWordPos.y))
+    
+        return wordPositions
+
+    def createWordLine(self, clothingPosition, wordPositions, offsetX, offsetY):
         lineWidth = 3
         lineColor = "white"
-        self.canvas.create_line(p1.getX(), p1.getY(), p2.getX(), p2.getY(), width=lineWidth, fill=lineColor)
-        self.canvas.create_oval(p1.getX() - 3, p1.getY() - 3, p1.getX() + 3, p1.getY() + 3, fill=lineColor)
-        self.canvas.create_oval(p2.getX() - 5, p2.getY() - 5, p2.getX() + 5, p2.getY() + 5, fill=lineColor)
-        self.canvas.create_oval(p2.getX() - 9, p2.getY() - 9, p2.getX() + 9, p2.getY() + 9, dash=(4, 4), width=1)
+        # Line from clothing item to first word
+        self.canvas.create_line(offsetX + clothingPosition.x, offsetY + clothingPosition.y, offsetX + wordPositions[0].x, offsetY + wordPositions[0].y, width=lineWidth, fill=lineColor)
+        self.canvas.create_oval(offsetX + clothingPosition.x - 3, offsetY + clothingPosition.y - 3, offsetX + clothingPosition.x + 3, offsetY + clothingPosition.y + 3, fill=lineColor)
+        # Circle at words
+        for wordPosition in wordPositions:
+            self.canvas.create_oval(offsetX + wordPosition.x - 5, offsetY + wordPosition.y - 5, offsetX + wordPosition.x + 5, offsetY + wordPosition.y + 5, fill=lineColor)
+            self.canvas.create_oval(offsetX + wordPosition.x - 9, offsetY + wordPosition.y - 9, offsetX + wordPosition.x + 9, offsetY + wordPosition.y + 9, dash=(4, 4), width=1)
+            
+        # Line between the words
+        self.canvas.create_line(offsetX + wordPositions[0].x, offsetY + wordPositions[0].y, offsetX + wordPositions[-1].x, offsetY + wordPositions[-1].y, width=lineWidth, fill=lineColor)
+
+
+    def validateAnswerFunc(self, choosenWords):
+        if validateAnswer(self.character, choosenWords):
+            self.win()
 
     def win(self):
         self.canvas.create_text(400, 190, text="Level cleared!", fill="green4", font='Arial 40 bold', anchor="center", tags="winText")
